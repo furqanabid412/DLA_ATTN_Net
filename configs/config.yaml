@@ -1,0 +1,106 @@
+dataset:
+  name : 'NuScenes'
+  type : 'RangeImg'
+  root :
+      train : 'E:\Research\Datasets\range_img\range\'
+      val : 'E:\Research\Datasets\range_img_val'
+      test : 'E:\Research\Datasets\range_img_val'
+  mean:
+    - 12.1063
+    - 7.7884
+    - -0.3015
+    - -0.3165
+    - -0.7672
+  std:
+    - 19.4655
+    - 12.2054
+    - 9.5711
+    - 10.7408
+    - 1.5764
+
+  class_names :
+    - 'ignore'
+    - 'car'
+    - 'pedestrian'
+    - 'bicycle'
+    - 'motorcycle'
+    - 'bus'
+    - 'truck'
+    - 'construction_vehicle'
+    - 'trailer'
+    - 'barrier'
+    - 'traffic_cone'
+    - 'driveable_surface'
+    - 'other_flat'
+    - 'sidewalk'
+    - 'terrain'
+    - 'manmade'
+    - 'vegetation'
+
+  ignore_class: 0
+
+  class_counts :
+      - 1.6149e+09
+      - 1.5331e+08
+      - 1.3790e+07
+      - 8.1859e+06
+      - 1.9989e+07
+      - 3.1068e+07
+      - 6.9388e+07
+      - 2.4461e+07
+      - 2.9413e+07
+      - 7.9546e+07
+      - 1.1217e+07
+      - 1.0160e+09
+      - 2.8585e+07
+      - 1.9434e+08
+      - 1.7599e+08
+      - 4.7516e+08
+      - 3.0121e+08
+
+  epsilon : 0.001
+
+  n_channels: 5
+  n_classes: 17
+
+train:
+  model : 'DLA_ATTN_NET'
+  gpus : -1
+  strategy : null # ddp for multi-gpus
+  batch_size : 4
+  workers : 2
+  max_epochs : 1000
+  shuffle : True
+  logging: True # data will be logged to wandb and the checkpoints will be saved
+  log_dir: 'E:\source_code\checkpoints\' # checkpoints will be saved here
+  wandb_log_proj : 'DLA_v1'
+  pretrained_dir : 'D:\saved_model_ablation\aug_attn_wasl\2023_2_20_10_50_57_epoch=7_val_miou=0.769272_aug=True.ckpt'
+
+validate:
+  model: 'DLA_ATTN_NET'
+  gpus: -1
+  strategy: null # ddp for multi-gpus
+  batch_size: 1 # should be 1 for correct evaluation
+  workers: 2
+  shuffle: False
+  logging: True # data will be logged to wandb and the checkpoints will be saved
+  wandb_log_proj: 'DLA_val'
+  pretrained_dir: 'D:\saved_model_ablation\aug_attn_wasl\2023_2_20_10_50_57_epoch=7_val_miou=0.769272_aug=True.ckpt'
+
+test:
+  gpus: -1
+  strategy: null
+  batch_size: 1
+  workers: 2
+  shuffle: True
+  logging : True
+  wandb_log_proj : 'DLA_val'
+  saved_checkpoint : 'D:\saved_model_ablation\aug_attn_wasl\2023_2_20_10_50_57_epoch=7_val_miou=0.769272_aug=True.ckpt'
+
+post_process:
+  apply : False
+  knn : 5
+  search : 5
+  sigma : 1.0
+  cutoff : 1.0
+  IsGauss : True
