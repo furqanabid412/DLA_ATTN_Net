@@ -7,8 +7,16 @@ import numba
 # proj_W = 1024
 # proj_H = 32
 
+# nuscene
+# proj_fov_up = 3
+# proj_fov_down = -25
 proj_fov_up = 10
 proj_fov_down = -30
+
+# semantickitti
+# proj_fov_up = 3
+# proj_fov_down = -25
+
 proj_W = 1024
 proj_H = 32
 

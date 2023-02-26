@@ -63,6 +63,26 @@ dataset:
   n_channels: 5
   n_classes: 17
 
+  color_map:
+    0: [ 0,0,0 ]
+    1: [ 255,158,0 ]
+    2: [ 0,0,230 ]
+    3: [ 220,20,60 ]
+    4: [ 135,206,235 ]
+    5: [ 255,69,0 ]
+    6: [ 255,99,71 ]
+    7: [ 188,143,143 ]
+    8: [ 255,228,196 ]
+    9: [ 112,128,144 ]
+    10: [ 47,79,79 ]
+    11: [ 0,207,191 ]
+    12: [ 175,0,75 ]
+    13: [ 75,0,75 ]
+    14: [ 112,180,60 ]
+    15: [ 222,184,135 ]
+    16: [ 0,175,0 ]
+
+
 train:
   model : 'DLA_ATTN_NET'
   gpus : -1
@@ -75,7 +95,8 @@ train:
   log_dir: 'E:\source_code\checkpoints\' # checkpoints will be saved here
   wandb_log_proj : 'DLA_v1'
   pretrained_dir : 'D:\saved_model_ablation\aug_attn_wasl\2023_2_20_10_50_57_epoch=7_val_miou=0.769272_aug=True.ckpt'
-
+  # 'D:\saved_model_ablation\aug_attn_wasl\2023_2_20_10_50_57_epoch=7_val_miou=0.769272_aug=True.ckpt'
+  # 'D:\saved_model_ablation\baseline_dla\checkpoints\2023_2_16_13_0_57_epoch=27_val_miou=0.540288_aug=False.ckpt'
 validate:
   model: 'DLA_ATTN_NET'
   gpus: -1
