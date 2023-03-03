@@ -1,0 +1,41 @@
+
+name : 'NuScenes'
+type : 'LidarPoints'
+root : 'F:\Datasets/nuscenes'
+version : 'v1.0-trainval'
+stage : 'val' # change to train if training
+max_points : 40000
+
+learning_map:
+  0: 0
+  1: 0
+  2: 2
+  3: 2
+  4: 2
+  5: 0
+  6: 2
+  7: 0
+  8: 0
+  9: 9
+  10: 0
+  11: 0
+  12: 10
+  13: 0
+  14: 3
+  15: 5
+  16: 5
+  17: 1
+  18: 7
+  19: 0
+  20: 0
+  21: 4
+  22: 8
+  23: 6
+  24: 11
+  25: 12
+  26: 13
+  27: 14
+  28: 15
+  29: 0
+  30: 16
+  31: 0
