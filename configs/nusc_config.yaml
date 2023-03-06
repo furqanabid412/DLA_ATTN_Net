@@ -39,3 +39,22 @@ learning_map:
   29: 0
   30: 16
   31: 0
+
+learning_map_inv:
+  0: 0 # 'ignore'
+  1: 17 # 'car'
+  2: 2 # 'pedestrian'
+  3: 14 # 'bicycle'
+  4: 21 # 'motorcycle'
+  5: 16 # 'bus'
+  6: 23 # 'truck'
+  7: 18 # 'construction_vehicle'
+  8: 22 # 'trailer'
+  9: 9 # 'barrier'
+  10: 12 # 'traffic_cone'
+  11: 24 # 'driveable_surface'
+  12: 25 # 'other_flat'
+  13: 26 # 'sidewalk'
+  14: 27 # 'terrain'
+  15: 28 # 'manmade'
+  16: 30 # 'vegetation'

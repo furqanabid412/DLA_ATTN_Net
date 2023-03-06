@@ -3,7 +3,7 @@ dataset:
   type : 'RangeImg'
   root :
       train : 'E:\Research\Datasets\range_img\range\'
-      val : 'E:\Research\Datasets\range_img_val'
+      val : 'E:\Research\Datasets\range_img_val_v2\' # 'E:\Research\Datasets\range_img_val'
       test : 'E:\Research\Datasets\range_img_val'
   mean:
     - 12.1063
@@ -57,6 +57,59 @@ dataset:
       - 1.7599e+08
       - 4.7516e+08
       - 3.0121e+08
+
+  learning_map:
+    0: 0
+    1: 0
+    2: 2
+    3: 2
+    4: 2
+    5: 0
+    6: 2
+    7: 0
+    8: 0
+    9: 9
+    10: 0
+    11: 0
+    12: 10
+    13: 0
+    14: 3
+    15: 5
+    16: 5
+    17: 1
+    18: 7
+    19: 0
+    20: 0
+    21: 4
+    22: 8
+    23: 6
+    24: 11
+    25: 12
+    26: 13
+    27: 14
+    28: 15
+    29: 0
+    30: 16
+    31: 0
+
+  learning_map_inv:
+    0: 0 # 'ignore'
+    1: 17 # 'car'
+    2: 2 # 'pedestrian'
+    3: 14 # 'bicycle'
+    4: 21 # 'motorcycle'
+    5: 16 # 'bus'
+    6: 23 # 'truck'
+    7: 18 # 'construction_vehicle'
+    8: 22 # 'trailer'
+    9: 9 # 'barrier'
+    10: 12 # 'traffic_cone'
+    11: 24 # 'driveable_surface'
+    12: 25 # 'other_flat'
+    13: 26 # 'sidewalk'
+    14: 27 # 'terrain'
+    15: 28 # 'manmade'
+    16: 30 # 'vegetation'
 
   epsilon : 0.001
 
@@ -119,7 +172,7 @@ test:
   saved_checkpoint : 'D:\saved_model_ablation\aug_attn_wasl\2023_2_20_10_50_57_epoch=7_val_miou=0.769272_aug=True.ckpt'
 
 post_process:
-  apply : False
+  apply : True
   knn : 5
   search : 5
   sigma : 1.0

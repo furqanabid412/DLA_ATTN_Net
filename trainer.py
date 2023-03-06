@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import pytorch_lightning as pl
 from network.DLA_ATTN_NET import DLA_ATTN_NET
@@ -5,10 +6,11 @@ from losses.WASL import WAsymmetricLoss
 from utils.metrics_eval import IouEval
 from utils.knn import KNN
 import torch.nn as nn
+import os
 
 
 class PLModel(pl.LightningModule):
-    def __init__(self, config = None,verbose = False):
+    def __init__(self, config = None,verbose = False,save_to_bin = False):
         super(PLModel, self).__init__()
 
         self.verbose = verbose
@@ -34,8 +36,10 @@ class PLModel(pl.LightningModule):
         if self.do_post_process:
             self.postProcessing = KNN(knn=config['post_process']['knn'], search=config['post_process']['search'], sigma=config['post_process']['sigma'],
                                   cutoff=config['post_process']['cutoff'], nclasses=self.n_classes,apply_gauss=config['post_process']['IsGauss'])
-
         self.train_mean_iou,self.val_mean_iou = 0.0,0.0
+
+        self.save_to_bin = save_to_bin
+        self.learning_map = config['dataset']['learning_map_inv']
 
     def forward(self, x):
         out = self.model(x)  # x : [B,C,H,W]  --> out : [B,n,H,W]
@@ -72,6 +76,11 @@ class PLModel(pl.LightningModule):
         self.train_mean_iou = 0.0
         self.evaluator.reset()
 
+    def class_mapping(self,labels,learning_map):
+        lmap = np.zeros((np.max([k for k in learning_map.keys()]) + 1), dtype=np.int32)
+        for k, v in learning_map.items():
+            lmap[k] = v
+        return lmap[labels]
 
     def validation_step(self, batch, batch_idx):
         x, y = batch["projected_rangeimg"], batch["projected_labels"]
@@ -93,6 +102,17 @@ class PLModel(pl.LightningModule):
             self.log('val-{}-iou'.format(self.class_names[i]), iou, on_step=True, on_epoch=False)
 
         self.log('val_iou', iou_mean, on_step=True, on_epoch=False, prog_bar=True, sync_dist=False) # for multi-gpu training sync_dist = True otherwise False
+
+        if self.do_post_process:
+            if self.save_to_bin:
+                filename = batch['token'][0][0]+'_lidarseg.bin'
+                save_path = 'E:\Research\Datasets\predictions'
+                point_preds = batched_labels_knn.type(torch.int64).cpu().numpy()
+                point_preds = np.squeeze(point_preds,axis=0)
+                point_preds = self.class_mapping(point_preds,self.learning_map)
+                point_preds = point_preds[batch['mask'][0].cpu().numpy()]
+                point_preds = point_preds.astype(np.uint8)
+                point_preds.tofile(os.path.join(save_path,filename))
         self.val_mean_iou = iou_mean
 
 

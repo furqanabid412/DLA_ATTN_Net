@@ -33,7 +33,8 @@ class PL_DataLoader(pl.LightningDataModule):
         return dataloader
 
     def test_dataloader(self):
-        dataloader = DataLoader(self.test_dataset, batch_size=self.batch_size,
-                                      shuffle=self.shuffle, num_workers=self.num_workers,
-                                      pin_memory=False, drop_last=self.drop_last)
-        return dataloader
+        pass
+        # dataloader = DataLoader(self.test_dataset, batch_size=self.batch_size,
+        #                               shuffle=self.shuffle, num_workers=self.num_workers,
+        #                               pin_memory=False, drop_last=self.drop_last)
+        # return dataloader
