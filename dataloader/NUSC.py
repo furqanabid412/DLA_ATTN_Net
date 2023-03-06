@@ -60,7 +60,7 @@ class NuscenseDataset(Dataset):
     def loadfilenames(self):
         scenes = self.train_scenes if self.stage == 'train' else self.val_scenes
         ref_chan = "LIDAR_TOP"
-        for sample in tqdm(self.nusc.sample):
+        for sample in self.nusc.sample:
             if not (sample["scene_token"] in scenes):
                 continue
             ref_sd_token = sample["data"][ref_chan]
@@ -70,6 +70,7 @@ class NuscenseDataset(Dataset):
             self.pointcloud_path.append(data_path)
             self.label_path.append(osp.join(self.nusc.dataroot, ref_lidarseg['filename']))
 
+        print('Loaded {} set'.format(self.stage))
     def loadPC(self,pointcloud_path, label_path=None):
         data = np.fromfile(pointcloud_path, dtype=np.float32).reshape(-1, 5)[:, :4]
         label = np.fromfile(label_path, dtype=np.uint8)
