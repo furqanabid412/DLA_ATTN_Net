@@ -1,7 +1,8 @@
 # DLA_ATTN_Net
 
-![Video](results/camera_lidar.gif)
-![Video](results/range_image.gif)
+[//]: # (![Video]&#40;results/camera_lidar.gif&#41;)
 
-<img src="results/camera_lidar.gif" width="600" height="250"/>
-<img src="results/range_image.gif" width="600" height="10"/>
+[//]: # (![Video]&#40;results/range_image.gif&#41;)
+
+<img src="results/camera_lidar.gif" width="800" height="250"/>
+<img src="results/range_image.gif" width="800" height="15"/>
