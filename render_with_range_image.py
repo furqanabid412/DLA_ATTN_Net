@@ -34,9 +34,15 @@ def render_scene_lidarseg(nusc, scene_token,out_path = None, filter_lidarseg_lab
     horizontal_flip = ['CAM_BACK_LEFT', 'CAM_BACK', 'CAM_BACK_RIGHT']
 
     slate = np.ones((2 * imsize[1], 3 * imsize[0], 3), np.uint8)
+    range_image = np.ones((32, 1024, 3), np.uint8)
+
+    output_size = (1024, 32)
+
+    # fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+    # out = cv2.VideoWriter(out_path, fourcc, freq, slate.shape[1::-1])
 
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-    out = cv2.VideoWriter(out_path, fourcc, freq, slate.shape[1::-1])
+    out = cv2.VideoWriter('E:\source_code\saved/range_pred.avi', fourcc, freq, output_size)
 
     keep_looping = True
     i = 0
@@ -79,11 +85,12 @@ def render_scene_lidarseg(nusc, scene_token,out_path = None, filter_lidarseg_lab
             range_image = range_image[:,:,::-1]
             # print('wait here')
 
-        window_name = 'cameras'
-        cv2.imshow(window_name, slate)
+        # window_name = 'cameras'
+        # cv2.imshow(window_name, slate)
         window_name = 'range_image'
         cv2.imshow(window_name,range_image)
 
+        range_image = cv2.normalize(range_image,None,0,255,cv2.NORM_MINMAX).astype(np.uint8)
 
         key = cv2.waitKey(1)
         if key == 32:
@@ -91,18 +98,16 @@ def render_scene_lidarseg(nusc, scene_token,out_path = None, filter_lidarseg_lab
 
         if key == 27:
             plt.close('all')
-            if out_path:
-                out.write(slate)
-                out.release()
+            # if out_path:
+            #     # out.write(slate)
+            #     # out.release()
             cv2.destroyAllWindows()
             break
 
         plt.close('all')
 
-        if out_path:
-            out.write(slate)
-        else:
-            pass
+        out.write(range_image)
+        # out.write(range_image.astype(np.uint8))
 
         next_token = sample_record['next']
         current_token = next_token
@@ -110,11 +115,12 @@ def render_scene_lidarseg(nusc, scene_token,out_path = None, filter_lidarseg_lab
         i += 1
 
     cv2.destroyAllWindows()
-
+    out.release()
     if out_path:
         assert total_num_samples == i, 'Error: There were supposed to be {} keyframes, ' \
                                        'but only {} keyframes were processed'.format(total_num_samples, i)
-        out.release()
+        # out.release()
+        # range_out.release()
 
 
 
