@@ -1,3 +1,4 @@
 # DLA_ATTN_Net
 
-![Video](dla_attn_net.gif)
+![Video](results/camera_lidar.gif)
+![Video](results/range_image.gif)
