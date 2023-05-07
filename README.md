@@ -18,7 +18,9 @@ Quantitative results on nuScenes Benchmark compared to state-of-the-art methods 
 | Ours           | 8.1        | **75.4** | 90.5| **75.1**      | **35.3**    | **77.5**       | **92.0**| **84.0**  | **51.1**           | **66.8**    | **77.1**    | **63.2**         | **96.5**           | 70.4       | **75.2**     | **74.9**    | **89.3**    | **87.8**       |
 
 
-The code is tested on CUDA10.2, torch 1.10.2 and pytorch lightening 1.9.0. For training, run main.py(set configs in configs/config.yaml first)
+The code is tested on CUDA 10.2, torch 1.10.2 and pytorch lightening 1.9.0.
+
+For training, run ```main.py``` (set configs in ```configs/config.yaml``` first)
 
 
 <!-- <img src="results/camera_lidar.gif" width="800" height="250"/> -->
