@@ -7,6 +7,7 @@ The code is tested on CUDA 10.2, torch 1.10.2 and pytorch lightening 1.9.0.
 For training, run ```main.py``` (set configs in ```configs/config.yaml``` first)
 
 The visulization results can be found here:
+
 <img src="results/fcbccedd61424f1b85dcbf8f897f9754.gif" width="800" height="250"/>
 
 
